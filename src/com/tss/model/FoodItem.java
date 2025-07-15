@@ -18,6 +18,10 @@ public class FoodItem implements Serializable {
 		this.description = description;
 	}
 
+	public FoodItem() {
+		super();
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -52,6 +56,6 @@ public class FoodItem implements Serializable {
 
 	@Override
 	public String toString() {
-		return id + ") " + name + " (Rs." + price + ") - " + description;
+		return  name + " (Rs." + price + ") - " + description;
 	}
 }

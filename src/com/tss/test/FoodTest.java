@@ -2,8 +2,8 @@ package com.tss.test;
 
 import java.util.Scanner;
 
-import com.tss.model.Admin;
-import com.tss.model.Customer;
+import com.tss.admin.Admin;
+import com.tss.customer.Customer;
 
 public class FoodTest {
 
@@ -35,17 +35,10 @@ public class FoodTest {
 
 	private static void customer() {
 
-		System.out.print("Enter Your Name : ");
-		String name = scanner.next();
-
-		System.out.print("Enter Your Email : ");
-		String email = scanner.next();
-
-		System.out.print("Enter Your phone : ");
-		String phone = scanner.next();
-
-		System.out.print("Enter Your Address : ");
-		String address = scanner.next();
+		String name = InputValidator.getValidName();
+		String email = InputValidator.getValidEmail();
+		String phone = InputValidator.getValidPhone();
+		String address = InputValidator.getValidAddress();
 
 		Customer customer = new Customer(name, email, phone, address);
 		customer.showCustomerMenu();
