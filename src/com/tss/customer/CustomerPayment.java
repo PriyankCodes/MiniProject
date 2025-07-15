@@ -12,6 +12,7 @@ import com.tss.payment.CardPayment;
 import com.tss.payment.CashPayment;
 import com.tss.payment.UPIPayment;
 import com.tss.util.ObjectLoad;
+import com.tss.validate.ValidatePayment;
 
 public class CustomerPayment {
 	private static final String DELIVERY_FILE = "delivery.ser";
@@ -29,10 +30,10 @@ public class CustomerPayment {
 		this.customer = customer;
 	}
 
-	public void checkout() {
+	public boolean checkout() {
 		if (currentOrder.getItemQuantityMap().isEmpty()) {
 			System.out.println("Cart is empty. Add items first.");
-			return;
+			return false;
 		}
 
 		payment(currentOrder);
@@ -40,7 +41,7 @@ public class CustomerPayment {
 		List<IDeliveryAgents> partners = ObjectLoad.load(DELIVERY_FILE);
 		if (partners == null || partners.isEmpty()) {
 			System.out.println("No delivery agents available.");
-			return;
+			return false;
 		}
 		IDeliveryAgents partner = partners.get(new Random().nextInt(partners.size()));
 		currentOrder.setDeliveryPartner(partner);
@@ -48,7 +49,9 @@ public class CustomerPayment {
 		orders.add(currentOrder);
 
 		InvoicePrinter printer = new InvoicePrinter();
-		printer.printInvoice(currentOrder,customer);
+		printer.printInvoice(currentOrder, customer);
+		
+		return true;
 
 	}
 
@@ -60,22 +63,17 @@ public class CustomerPayment {
 		System.out.print("Choice: ");
 		int payChoice = scanner.nextInt();
 
+		ValidatePayment valid = new ValidatePayment();
 		IPayment payment = null;
 		switch (payChoice) {
 		case 1 -> {
-			System.out.print("Enter UPI ID: ");
-			String upiId = scanner.next();
-
-			System.out.print("Enter pin: ");
-			String pin = scanner.next();
+			String upiId = valid.getValidUPI();
+			String pin = valid.getValidPin();
 			payment = new UPIPayment(upiId, pin, order.getFinalAmount());
 		}
 		case 2 -> {
-			System.out.print("Enter Card Number: ");
-			String cardNumber = scanner.next();
-
-			System.out.print("Enter pin: ");
-			String pin = scanner.next();
+			String cardNumber = valid.getValidCardNumber();
+			String pin = valid.getValidPin();
 			payment = new CardPayment(cardNumber, pin, order.getFinalAmount());
 		}
 		case 3 -> {

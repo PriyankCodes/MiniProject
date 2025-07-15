@@ -46,8 +46,8 @@ public class Customer {
 			case 1 -> new ViewMenu(menus).showMenu();
 			case 2 -> new CustomerCart(menus, currentOrder).addToCart();
 			case 3 -> {
-				new CustomerPayment(currentOrder, orders, this).checkout();
-				return;
+				if (new CustomerPayment(currentOrder, orders, this).checkout())
+					return;
 			}
 			case 4 -> System.out.println("Thank you for visiting!");
 			default -> System.out.println("Invalid choice.");

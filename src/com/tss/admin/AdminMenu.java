@@ -47,21 +47,30 @@ public class AdminMenu {
 		System.out.print("Enter choice: ");
 		int choice = scanner.nextInt();
 
-		IMenu menu = switch (choice) {
-		case 1 -> new IndianMenu();
-		case 2 -> new ChineseMenu();
-		case 3 -> new ItalianMenu();
+		IMenu newMenu = null;
+
+		switch (choice) {
+		case 1 -> newMenu = new IndianMenu();
+		case 2 -> newMenu = new ChineseMenu();
+		case 3 -> newMenu = new ItalianMenu();
 		default -> {
 			System.out.println("Invalid choice.");
-			yield null;
+			return;
 		}
-		};
+		}
 
-		if (menu != null) {
+		for (IMenu menu : menus) {
+			if (menu.getClass().equals(newMenu.getClass())) {
+				System.out.println(newMenu.getClass().getSimpleName() + " already exists. Duplicate not allowed.");
+				return;
+			}
+		}
 
-			menus.add(menu);
+		if (newMenu != null) {
+
+			menus.add(newMenu);
 			ObjectStore.save(MENU_FILE, menus);
-			System.out.println(menu.getClass().getSimpleName() + " added successfully.");
+			System.out.println(newMenu.getClass().getSimpleName() + " added successfully.");
 		}
 	}
 

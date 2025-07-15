@@ -1,4 +1,4 @@
-package com.tss.test;
+package com.tss.validate;
 
 import java.util.Scanner;
 
@@ -8,7 +8,7 @@ public class InputValidator {
 	public static String getValidName() {
 		String name;
 		do {
-			System.out.print("Enter Your Name: ");
+			System.out.print("\nEnter Your Name: ");
 			name = scanner.nextLine().trim();
 		} while (name.isEmpty());
 		return name;

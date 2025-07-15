@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import com.tss.admin.Admin;
 import com.tss.customer.Customer;
+import com.tss.validate.InputValidator;
 
 public class FoodTest {
 
