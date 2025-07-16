@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import com.tss.exception.EmptyCartException;
 import com.tss.model.IDeliveryAgents;
 import com.tss.model.IPayment;
 import com.tss.orders.InvoicePrinter;
@@ -30,10 +31,9 @@ public class CustomerPayment {
 		this.customer = customer;
 	}
 
-	public boolean checkout() {
+	public void checkout() {
 		if (currentOrder.getItemQuantityMap().isEmpty()) {
-			System.out.println("Cart is empty. Add items first.");
-			return false;
+			throw new EmptyCartException();
 		}
 
 		payment(currentOrder);
@@ -41,7 +41,7 @@ public class CustomerPayment {
 		List<IDeliveryAgents> partners = ObjectLoad.load(DELIVERY_FILE);
 		if (partners == null || partners.isEmpty()) {
 			System.out.println("No delivery agents available.");
-			return false;
+			
 		}
 		IDeliveryAgents partner = partners.get(new Random().nextInt(partners.size()));
 		currentOrder.setDeliveryPartner(partner);
@@ -50,8 +50,7 @@ public class CustomerPayment {
 
 		InvoicePrinter printer = new InvoicePrinter();
 		printer.printInvoice(currentOrder, customer);
-		
-		return true;
+
 
 	}
 

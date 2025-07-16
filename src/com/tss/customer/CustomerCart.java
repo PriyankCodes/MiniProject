@@ -1,5 +1,6 @@
 package com.tss.customer;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Scanner;
 
@@ -7,7 +8,9 @@ import com.tss.model.FoodItem;
 import com.tss.model.IMenu;
 import com.tss.orders.Order;
 
-public class CustomerCart {
+public class CustomerCart implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private final Scanner scanner = new Scanner(System.in);
 	private final List<IMenu> menus;
 	private final Order currentOrder;

@@ -3,6 +3,7 @@ package com.tss.admin;
 import java.util.List;
 import java.util.Scanner;
 
+import com.tss.exception.NoMenuAvailableException;
 import com.tss.model.FoodItem;
 import com.tss.model.IMenu;
 import com.tss.util.ObjectStore;
@@ -29,7 +30,14 @@ public class AdminFoodItems {
 			choice = scanner.nextInt();
 
 			switch (choice) {
-			case 1 -> addFoodItem();
+			case 1 -> {
+				try {
+					addFoodItem();
+				} catch (NoMenuAvailableException exception) {
+					System.out.println(exception.getMessage());
+
+				}
+			}
 			case 2 -> editFoodItem();
 			case 3 -> removeFoodItem();
 			case 4 -> viewAllItems();
@@ -144,8 +152,8 @@ public class AdminFoodItems {
 
 	private void viewMenus() {
 		if (menus.isEmpty()) {
-			System.out.println("No menus found.");
-			return;
+			throw new NoMenuAvailableException();
+
 		}
 		for (int i = 0; i < menus.size(); i++) {
 			System.out.println((i + 1) + ". " + menus.get(i).getClass().getSimpleName());

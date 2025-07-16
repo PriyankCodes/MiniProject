@@ -1,34 +1,43 @@
 package com.tss.customer;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.tss.model.IMenu;
+import com.tss.exception.EmptyCartException;
+import com.tss.exception.NoMenuAvailableException;
 import com.tss.orders.Order;
 import com.tss.util.ObjectLoad;
 
-public class Customer {
+public class Customer implements Serializable {
 
-	private static int counter = 101;
+	private static final long serialVersionUID = 1L;
+	static Scanner scanner = new Scanner(System.in);
+
+	private static int counter = 0;
 
 	private int customerId;
-	private String name, email, phone, address;
+	private String name, email, phone, address, password;
 	private List<Order> orders;
 
 	private static final String MENU_FILE = "menus.ser";
-	private List<IMenu> menus = ObjectLoad.load(MENU_FILE);;
 
 	private Order currentOrder = new Order();
-	Scanner scanner = new Scanner(System.in);
 
-	public Customer(String name, String email, String phone, String address) {
+	public Customer(String name, String email, String phone, String address, String password) {
 		this.name = name;
 		this.email = email;
 		this.phone = phone;
 		this.address = address;
+		this.password = password;
 		orders = new ArrayList<>();
-		customerId = counter++;
+
+		if (counter == 0) {
+			List<Customer> allCustomers = ObjectLoad.load("customers.ser");
+			counter = allCustomers != null ? allCustomers.size() + 101 : 101;
+		}
+		this.customerId = counter++;
 	}
 
 	public void showCustomerMenu() {
@@ -43,16 +52,29 @@ public class Customer {
 			choice = scanner.nextInt();
 
 			switch (choice) {
-			case 1 -> new ViewMenu(menus).showMenu();
-			case 2 -> new CustomerCart(menus, currentOrder).addToCart();
+			case 1 -> {
+				try {
+					new ViewMenu(ObjectLoad.load(MENU_FILE)).showMenu();
+				} catch (NoMenuAvailableException exception) {
+					System.out.println(exception.getMessage());
+
+				}
+			}
+			case 2 -> new CustomerCart(ObjectLoad.load(MENU_FILE), currentOrder).addToCart();
 			case 3 -> {
-				if (new CustomerPayment(currentOrder, orders, this).checkout())
+				try {
+					new CustomerPayment(currentOrder, orders, this).checkout();
 					return;
+
+				} catch (EmptyCartException exception) {
+					System.out.println(exception.getMessage());
+				}
 			}
 			case 4 -> System.out.println("Thank you for visiting!");
 			default -> System.out.println("Invalid choice.");
 			}
 		} while (choice != 4);
+
 	}
 
 	public String getEmail() {
@@ -73,6 +95,10 @@ public class Customer {
 
 	public String getPhone() {
 		return phone;
+	}
+
+	public String getPassword() {
+		return password;
 	}
 
 }

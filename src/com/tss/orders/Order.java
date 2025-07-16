@@ -1,5 +1,6 @@
 package com.tss.orders;
 
+import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,9 +11,11 @@ import com.tss.model.IDiscount;
 import com.tss.model.IPayment;
 import com.tss.util.ObjectLoad;
 
-public class Order {
+public class Order implements Serializable {
 
-	private static int counter = 1001;
+	private static final long serialVersionUID = 1L;
+
+	private static int counter = 0;
 	private static final String DISCOUNT_FILE = "discounts.ser";
 
 	private int orderId;
@@ -25,6 +28,10 @@ public class Order {
 	private double finalAmount;
 
 	public Order() {
+		if (counter == 0) {
+			List<Order> allOrders = ObjectLoad.load("orders.ser");
+			counter = allOrders != null ? allOrders.size() + 1001 : 1001;
+		}
 		orderId = counter++;
 	}
 
@@ -61,8 +68,6 @@ public class Order {
 	public int getOrderId() {
 		return orderId;
 	}
-
-
 
 	public Map<FoodItem, Integer> getItemQuantityMap() {
 		return itemQuantityMap;

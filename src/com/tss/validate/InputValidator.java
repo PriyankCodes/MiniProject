@@ -32,6 +32,15 @@ public class InputValidator {
 		return phone;
 	}
 
+	public static String getValidPassword() {
+		String phone;
+		do {
+			System.out.print("Enter Your Password: ");
+			phone = scanner.nextLine().trim();
+		} while (!phone.matches("\\d{4}"));
+		return phone;
+	}
+
 	public static String getValidAddress() {
 		String address;
 		do {

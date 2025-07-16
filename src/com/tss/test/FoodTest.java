@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import com.tss.admin.Admin;
 import com.tss.customer.Customer;
-import com.tss.validate.InputValidator;
+import com.tss.customer.CustomerLogin;
 
 public class FoodTest {
 
@@ -13,7 +13,7 @@ public class FoodTest {
 	public static void main(String[] args) {
 
 		while (true) {
-			System.out.print("Are you:\n1. Admin\n2. Customer\n3. Exit => ");
+			System.out.print("\nAre you:\n1. Admin\n2. Customer\n3. Exit => ");
 			int choice = scanner.nextInt();
 
 			switch (choice) {
@@ -36,13 +36,14 @@ public class FoodTest {
 
 	private static void customer() {
 
-		String name = InputValidator.getValidName();
-		String email = InputValidator.getValidEmail();
-		String phone = InputValidator.getValidPhone();
-		String address = InputValidator.getValidAddress();
+		CustomerLogin login = new CustomerLogin();
+		Customer customer = login.authenticateOrRegister();
 
-		Customer customer = new Customer(name, email, phone, address);
-		customer.showCustomerMenu();
+		if (customer != null) {
+			customer.showCustomerMenu();
+		} else {
+			System.out.println("Login failed.");
+		}
 	}
 
 	private static void admin() {

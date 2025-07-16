@@ -13,6 +13,7 @@ public class ObjectStore {
 			oos.writeObject(data);
 		} catch (IOException e) {
 			System.out.println("Error saving data to " + filename);
+			e.printStackTrace();
 		}
 	}
 }
