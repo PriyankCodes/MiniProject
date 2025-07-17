@@ -55,10 +55,12 @@ public class FoodTest {
 		System.out.print("Enter Password : ");
 		String password = scanner.next();
 
-		if (admin.authenticate(id, password)) {
-
-			admin.showAdminMenu();
+		if (!admin.authenticate(id, password)) {
+			System.out.println("Incorrect Id or Password!");
+			return;
 		}
+		admin.showAdminMenu();
+
 	}
 
 }

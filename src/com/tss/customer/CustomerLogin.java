@@ -1,5 +1,6 @@
 package com.tss.customer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.tss.util.ObjectLoad;
@@ -10,9 +11,11 @@ public class CustomerLogin {
 	private static final String CUSTOMER_FILE = "customers.ser";
 
 	public Customer authenticate() {
+
 		List<Customer> customers = ObjectLoad.load(CUSTOMER_FILE);
+
 		if (customers == null)
-			customers = new java.util.ArrayList<>();
+			customers = new ArrayList<>();
 
 		String email = InputValidator.getValidEmail();
 

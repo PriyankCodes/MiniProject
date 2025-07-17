@@ -37,7 +37,7 @@ public class InputValidator {
 		do {
 			System.out.print("Enter Your Password: ");
 			phone = scanner.nextLine().trim();
-		} while (!phone.matches("\\d{4}"));
+		} while (!phone.matches("\\d{4,8}"));
 		return phone;
 	}
 

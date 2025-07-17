@@ -62,11 +62,6 @@ public class AdminFoodItems {
 		scanner.nextLine();
 		System.out.print("Enter Name: ");
 		String name = scanner.nextLine();
-		System.out.print("Enter Price: ");
-		double price = scanner.nextDouble();
-		scanner.nextLine();
-		System.out.print("Enter Description: ");
-		String desc = scanner.nextLine();
 
 		IMenu menu = menus.get(menuIndex - 1);
 		for (FoodItem foodItem : menu.getMenuItems()) {
@@ -75,6 +70,12 @@ public class AdminFoodItems {
 				return;
 			}
 		}
+		
+		System.out.print("Enter Price: ");
+		double price = scanner.nextDouble();
+		scanner.nextLine();
+		System.out.print("Enter Description: ");
+		String desc = scanner.nextLine();
 
 		menu.getMenuItems().add(new FoodItem(id, name, price, desc));
 		ObjectStore.save(MENU_FILE, menus);
