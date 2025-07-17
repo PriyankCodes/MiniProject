@@ -37,7 +37,7 @@ public class FoodTest {
 	private static void customer() {
 
 		CustomerLogin login = new CustomerLogin();
-		Customer customer = login.authenticateOrRegister();
+		Customer customer = login.authenticate();
 
 		if (customer != null) {
 			customer.showCustomerMenu();

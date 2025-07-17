@@ -46,8 +46,9 @@ public class Customer implements Serializable {
 			System.out.println("\n--- Customer Menu ---");
 			System.out.println("1. View Menu");
 			System.out.println("2. Add to Cart");
-			System.out.println("3. Checkout");
-			System.out.println("4. Exit");
+			System.out.println("3. View Cart");
+			System.out.println("4. Checkout");
+			System.out.println("5. Exit");
 			System.out.print("Enter Your Choice: ");
 			choice = scanner.nextInt();
 
@@ -61,7 +62,16 @@ public class Customer implements Serializable {
 				}
 			}
 			case 2 -> new CustomerCart(ObjectLoad.load(MENU_FILE), currentOrder).addToCart();
+
 			case 3 -> {
+				try {
+					new ViewCart(currentOrder).viewCart();
+
+				} catch (EmptyCartException exception) {
+					System.out.println(exception.getMessage());
+				}
+			}
+			case 4 -> {
 				try {
 					new CustomerPayment(currentOrder, orders, this).checkout();
 					return;
@@ -70,10 +80,10 @@ public class Customer implements Serializable {
 					System.out.println(exception.getMessage());
 				}
 			}
-			case 4 -> System.out.println("Thank you for visiting!");
+			case 5 -> System.out.println("Thank you for visiting!");
 			default -> System.out.println("Invalid choice.");
 			}
-		} while (choice != 4);
+		} while (choice != 5);
 
 	}
 

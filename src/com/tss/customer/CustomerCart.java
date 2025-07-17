@@ -1,6 +1,5 @@
 package com.tss.customer;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Scanner;
 
@@ -8,9 +7,8 @@ import com.tss.model.FoodItem;
 import com.tss.model.IMenu;
 import com.tss.orders.Order;
 
-public class CustomerCart implements Serializable {
+public class CustomerCart {
 
-	private static final long serialVersionUID = 1L;
 	private final Scanner scanner = new Scanner(System.in);
 	private final List<IMenu> menus;
 	private final Order currentOrder;
@@ -48,7 +46,7 @@ public class CustomerCart implements Serializable {
 				System.out.println((i + 1) + ". " + items.get(i));
 			}
 
-			System.out.print("Select item number (0 to finish): ");
+			System.out.print("\nSelect item number (0 to finish): ");
 			int itemChoice = scanner.nextInt();
 			if (itemChoice == 0)
 				break;

@@ -9,7 +9,7 @@ import com.tss.validate.InputValidator;
 public class CustomerLogin {
 	private static final String CUSTOMER_FILE = "customers.ser";
 
-	public Customer authenticateOrRegister() {
+	public Customer authenticate() {
 		List<Customer> customers = ObjectLoad.load(CUSTOMER_FILE);
 		if (customers == null)
 			customers = new java.util.ArrayList<>();

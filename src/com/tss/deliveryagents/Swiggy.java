@@ -7,7 +7,7 @@ public class Swiggy implements IDeliveryAgents {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public IDeliveryAgents assignAgent() {
+	public IDeliveryAgents getAgent() {
 		return new Swiggy();
 	}
 

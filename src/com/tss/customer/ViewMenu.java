@@ -1,15 +1,13 @@
 package com.tss.customer;
 
-import java.io.Serializable;
 import java.util.List;
 
 import com.tss.exception.NoMenuAvailableException;
 import com.tss.model.FoodItem;
 import com.tss.model.IMenu;
 
-public class ViewMenu implements Serializable {
+public class ViewMenu {
 
-	private static final long serialVersionUID = 1L;
 	private final List<IMenu> menus;
 
 	public ViewMenu(List<IMenu> menus) {

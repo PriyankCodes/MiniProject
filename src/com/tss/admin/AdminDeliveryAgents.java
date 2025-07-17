@@ -3,8 +3,7 @@ package com.tss.admin;
 import java.util.List;
 import java.util.Scanner;
 
-import com.tss.deliveryagents.Swiggy;
-import com.tss.deliveryagents.Zomato;
+import com.tss.deliveryagents.DeliveryAgentFactory;
 import com.tss.model.IDeliveryAgents;
 import com.tss.util.ObjectStore;
 
@@ -39,24 +38,25 @@ public class AdminDeliveryAgents {
 	}
 
 	private void addAgent() {
-		System.out.println("1. Swiggy");
-		System.out.println("2. Zomato");
-		System.out.print("Choose: ");
-		int type = scanner.nextInt();
+		System.out.print("Enter agent type (Swiggy/Zomato): ");
+		String type = scanner.next();
 
-		IDeliveryAgents agent = switch (type) {
-		case 1 -> new Swiggy().assignAgent();
-		case 2 -> new Zomato().assignAgent();
-		default -> {
-			System.out.println("Invalid choice.");
-			yield null;
-		}
-		};
+		try {
+			boolean alreadyAdded = deliveryAgents.stream()
+					.anyMatch(agent -> agent.getClass().getSimpleName().equalsIgnoreCase(type));
 
-		if (agent != null) {
+			if (alreadyAdded) {
+				System.out.println(type + " agent already added.");
+				return;
+			}
+
+			IDeliveryAgents agent = DeliveryAgentFactory.createAgent(type);
 			deliveryAgents.add(agent);
 			ObjectStore.save(DELIVERY_FILE, deliveryAgents);
 			System.out.println(agent.getClass().getSimpleName() + " added.");
+
+		} catch (IllegalArgumentException exception) {
+			System.out.println(exception.getMessage());
 		}
 	}
 
