@@ -22,7 +22,7 @@ public class ViewMenu {
 
 		for (int i = 0; i < menus.size(); i++) {
 			IMenu menu = menus.get(i);
-			System.out.println((i + 1) + ". " + menu.getClass().getSimpleName());
+			System.out.println("\n" + (i + 1) + ". " + menu.getClass().getSimpleName());
 			for (FoodItem item : menu.getMenuItems()) {
 				System.out.println("   - " + item);
 			}

@@ -15,7 +15,7 @@ public class Order implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private static int counter = 0;
+	private static int counter = 1001;
 	private static final String DISCOUNT_FILE = "discounts.ser";
 
 	private int orderId;
@@ -28,10 +28,6 @@ public class Order implements Serializable {
 	private double finalAmount;
 
 	public Order() {
-		if (counter == 0) {
-			List<Order> allOrders = ObjectLoad.load("orders.ser");
-			counter = allOrders != null ? allOrders.size() + 1001 : 1001;
-		}
 		orderId = counter++;
 	}
 

@@ -92,6 +92,7 @@ public class AdminMenu {
 			System.out.println("No menus available.");
 			return;
 		}
+		System.out.println();
 		for (int i = 0; i < menus.size(); i++) {
 			IMenu menu = menus.get(i);
 			System.out.println((i + 1) + ". " + menu.getClass().getSimpleName());

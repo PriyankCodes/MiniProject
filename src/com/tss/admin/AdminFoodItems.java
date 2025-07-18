@@ -35,7 +35,6 @@ public class AdminFoodItems {
 					addFoodItem();
 				} catch (NoMenuAvailableException exception) {
 					System.out.println(exception.getMessage());
-
 				}
 			}
 			case 2 -> editFoodItem();
@@ -52,34 +51,47 @@ public class AdminFoodItems {
 		System.out.print("Select menu: ");
 		int menuIndex = scanner.nextInt();
 		scanner.nextLine();
+
 		if (menuIndex < 1 || menuIndex > menus.size()) {
 			System.out.println("Invalid menu.");
 			return;
 		}
 
-		System.out.print("Enter Food ID: ");
-		int id = scanner.nextInt();
-		scanner.nextLine();
+		IMenu menu = menus.get(menuIndex - 1);
+
+		int id = getNextFoodId(menu);
+
+		System.out.println("Auto-generated Food ID: " + id);
+
 		System.out.print("Enter Name: ");
 		String name = scanner.nextLine();
 
-		IMenu menu = menus.get(menuIndex - 1);
 		for (FoodItem foodItem : menu.getMenuItems()) {
-			if (foodItem.getId() == id || foodItem.getName().equalsIgnoreCase(name)) {
+			if (foodItem.getName().equalsIgnoreCase(name)) {
 				System.out.println("Food item already exists.");
 				return;
 			}
 		}
-		
+
 		System.out.print("Enter Price: ");
 		double price = scanner.nextDouble();
 		scanner.nextLine();
 		System.out.print("Enter Description: ");
-		String desc = scanner.nextLine();
+		String description = scanner.nextLine();
 
-		menu.getMenuItems().add(new FoodItem(id, name, price, desc));
+		menu.getMenuItems().add(new FoodItem(id, name, price, description));
 		ObjectStore.save(MENU_FILE, menus);
 		System.out.println("Food item added.");
+	}
+
+	private int getNextFoodId(IMenu menu) {
+		int maxId = 0;
+		for (FoodItem item : menu.getMenuItems()) {
+			if (item.getId() > maxId) {
+				maxId = item.getId();
+			}
+		}
+		return maxId + 1;
 	}
 
 	private void editFoodItem() {
@@ -144,7 +156,7 @@ public class AdminFoodItems {
 	private void viewAllItems() {
 		viewMenus();
 		for (IMenu menu : menus) {
-			System.out.println(menu.getClass().getSimpleName() + ":");
+			System.out.println("\n" + menu.getClass().getSimpleName() + ":");
 			for (FoodItem item : menu.getMenuItems()) {
 				System.out.println("   - " + item);
 			}
@@ -154,7 +166,6 @@ public class AdminFoodItems {
 	private void viewMenus() {
 		if (menus.isEmpty()) {
 			throw new NoMenuAvailableException();
-
 		}
 		for (int i = 0; i < menus.size(); i++) {
 			System.out.println((i + 1) + ". " + menus.get(i).getClass().getSimpleName());

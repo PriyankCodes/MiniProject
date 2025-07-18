@@ -1,6 +1,8 @@
 package com.tss.model;
 
-public interface IPayment {
+import java.io.Serializable;
+
+public interface IPayment extends Serializable {
 
 	String pay();
 }

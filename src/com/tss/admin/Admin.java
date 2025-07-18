@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Scanner;
 
+import com.tss.exception.NoMenuAvailableException;
 import com.tss.model.IDeliveryAgents;
 import com.tss.model.IDiscount;
 import com.tss.model.IMenu;
@@ -49,7 +50,13 @@ public class Admin implements Serializable {
 
 			switch (choice) {
 			case 1 -> new AdminMenu(menus).menuManagement();
-			case 2 -> new AdminFoodItems(menus).foodItemManagement();
+			case 2 -> {
+				try {
+					new AdminFoodItems(menus).foodItemManagement();
+				} catch (NoMenuAvailableException exception) {
+					System.out.println(exception.getMessage());
+				}
+			}
 			case 3 -> new AdminDiscount(discounts).discountManagement();
 			case 4 -> new AdminDeliveryAgents(deliveryAgents).deliveryManagement();
 			case 5 -> {
