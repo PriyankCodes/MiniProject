@@ -1,7 +1,5 @@
 package com.tss.payment;
 
-import com.tss.model.IPayment;
-
 public class CardPayment implements IPayment {
 
 	private String cardNumber, pin;

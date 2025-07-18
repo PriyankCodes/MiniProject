@@ -3,7 +3,7 @@ package com.tss.customer;
 import java.util.Map;
 
 import com.tss.exception.EmptyCartException;
-import com.tss.model.FoodItem;
+import com.tss.menus.FoodItem;
 import com.tss.orders.Order;
 
 public class ViewCart {
@@ -25,6 +25,8 @@ public class ViewCart {
 		for (Map.Entry<FoodItem, Integer> entry : order.getItemQuantityMap().entrySet()) {
 			System.out.println("  - " + entry.getKey() + " (x" + entry.getValue() + ")");
 		}
+		System.out.println("\n\tTotal Amount  : ₹" + order.getTotalAmount());
+
 	}
 
 }

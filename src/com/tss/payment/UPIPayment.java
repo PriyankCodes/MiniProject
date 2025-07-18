@@ -1,7 +1,5 @@
 package com.tss.payment;
 
-import com.tss.model.IPayment;
-
 public class UPIPayment implements IPayment {
 
 	private String upiId, pin;

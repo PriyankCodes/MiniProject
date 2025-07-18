@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import com.tss.deliveryagents.IDeliveryAgents;
 import com.tss.exception.EmptyCartException;
-import com.tss.model.IDeliveryAgents;
-import com.tss.model.IPayment;
 import com.tss.orders.InvoicePrinter;
 import com.tss.orders.Order;
 import com.tss.payment.CardPayment;
 import com.tss.payment.CashPayment;
+import com.tss.payment.IPayment;
 import com.tss.payment.UPIPayment;
 import com.tss.util.ObjectLoad;
 import com.tss.validate.ValidatePayment;

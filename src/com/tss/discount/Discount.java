@@ -1,4 +1,4 @@
-package com.tss.model;
+package com.tss.discount;
 
 public class Discount implements IDiscount {
 

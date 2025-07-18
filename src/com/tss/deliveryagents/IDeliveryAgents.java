@@ -1,4 +1,4 @@
-package com.tss.model;
+package com.tss.deliveryagents;
 
 import java.io.Serializable;
 

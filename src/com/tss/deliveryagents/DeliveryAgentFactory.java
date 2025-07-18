@@ -1,7 +1,5 @@
 package com.tss.deliveryagents;
 
-import com.tss.model.IDeliveryAgents;
-
 public class DeliveryAgentFactory {
 	public static IDeliveryAgents createAgent(String type) {
 		return switch (type.toLowerCase()) {

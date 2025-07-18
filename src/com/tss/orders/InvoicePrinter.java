@@ -3,7 +3,7 @@ package com.tss.orders;
 import java.util.Map;
 
 import com.tss.customer.Customer;
-import com.tss.model.FoodItem;
+import com.tss.menus.FoodItem;
 
 public class InvoicePrinter {
 

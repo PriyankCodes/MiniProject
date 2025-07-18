@@ -1,7 +1,5 @@
 package com.tss.payment;
 
-import com.tss.model.IPayment;
-
 public class CashPayment implements IPayment {
 
 	private double finalAmount;

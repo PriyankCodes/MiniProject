@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.tss.deliveryagents.DeliveryAgentFactory;
-import com.tss.model.IDeliveryAgents;
+import com.tss.deliveryagents.IDeliveryAgents;
 import com.tss.util.ObjectStore;
 
 public class AdminDeliveryAgents {

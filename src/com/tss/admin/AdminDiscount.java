@@ -3,8 +3,8 @@ package com.tss.admin;
 import java.util.List;
 import java.util.Scanner;
 
-import com.tss.model.Discount;
-import com.tss.model.IDiscount;
+import com.tss.discount.Discount;
+import com.tss.discount.IDiscount;
 import com.tss.util.ObjectStore;
 
 public class AdminDiscount {

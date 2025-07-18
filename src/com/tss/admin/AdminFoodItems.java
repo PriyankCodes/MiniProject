@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.tss.exception.NoMenuAvailableException;
-import com.tss.model.FoodItem;
-import com.tss.model.IMenu;
+import com.tss.menus.FoodItem;
+import com.tss.menus.IMenu;
 import com.tss.util.ObjectStore;
 
 public class AdminFoodItems {
@@ -115,17 +115,32 @@ public class AdminFoodItems {
 		}
 
 		FoodItem item = items.get(index - 1);
-		System.out.print("Enter new name: ");
+		System.out.print("Enter new name (press Enter to keep unchanged): ");
 		String name = scanner.nextLine();
-		System.out.print("Enter new price: ");
-		double price = scanner.nextDouble();
-		scanner.nextLine();
-		System.out.print("Enter new description: ");
-		String desc = scanner.nextLine();
+		if (!name.isBlank()) {
+			item.setName(name);
+		}
+		System.out.print("Enter new price (press Enter to keep unchanged): ");
+		String priceInput = scanner.nextLine();
+		if (!priceInput.isBlank()) {
+			try {
+				double price = Double.parseDouble(priceInput);
+				if (price > 0) {
+					item.setPrice(price);
+				} else {
+					System.out.println("Invalid price input. Keeping old price.");
 
-		item.setName(name);
-		item.setPrice(price);
-		item.setDescription(desc);
+				}
+			} catch (Exception e) {
+				System.out.println("Invalid price input. Keeping old price.");
+			}
+		}
+
+		System.out.print("Enter new description (press Enter to keep unchanged): ");
+		String desc = scanner.nextLine();
+		if (!desc.isBlank()) {
+			item.setDescription(desc);
+		}
 		ObjectStore.save(MENU_FILE, menus);
 		System.out.println("Item updated.");
 	}

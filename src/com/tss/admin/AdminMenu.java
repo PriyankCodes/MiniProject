@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.tss.menus.ChineseMenu;
+import com.tss.menus.IMenu;
 import com.tss.menus.IndianMenu;
 import com.tss.menus.ItalianMenu;
-import com.tss.model.IMenu;
 import com.tss.util.ObjectStore;
 
 public class AdminMenu {

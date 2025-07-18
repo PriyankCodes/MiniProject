@@ -48,7 +48,8 @@ public class Customer implements Serializable {
 			System.out.println("2. Add to Cart");
 			System.out.println("3. View Cart");
 			System.out.println("4. Checkout");
-			System.out.println("5. Exit");
+			System.out.println("5. Edit Cart");
+			System.out.println("6. Exit");
 			System.out.print("Enter Your Choice: ");
 			choice = scanner.nextInt();
 
@@ -61,7 +62,7 @@ public class Customer implements Serializable {
 
 				}
 			}
-			case 2 -> new CustomerCart(ObjectLoad.load(MENU_FILE), currentOrder).addToCart();
+			case 2 -> new CustomerAddCart(ObjectLoad.load(MENU_FILE), currentOrder).addToCart();
 
 			case 3 -> {
 				try {
@@ -80,10 +81,12 @@ public class Customer implements Serializable {
 					System.out.println(exception.getMessage());
 				}
 			}
-			case 5 -> System.out.println("Thank you for visiting!");
+
+			case 5 -> new EditCart(currentOrder).editCartQuantity();
+			case 6 -> System.out.println("Thank you for visiting!");
 			default -> System.out.println("Invalid choice.");
 			}
-		} while (choice != 5);
+		} while (choice != 6);
 
 	}
 

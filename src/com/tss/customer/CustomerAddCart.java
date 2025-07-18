@@ -3,17 +3,17 @@ package com.tss.customer;
 import java.util.List;
 import java.util.Scanner;
 
-import com.tss.model.FoodItem;
-import com.tss.model.IMenu;
+import com.tss.menus.FoodItem;
+import com.tss.menus.IMenu;
 import com.tss.orders.Order;
 
-public class CustomerCart {
+public class CustomerAddCart {
 
 	private final Scanner scanner = new Scanner(System.in);
 	private final List<IMenu> menus;
 	private final Order currentOrder;
 
-	public CustomerCart(List<IMenu> menus, Order currentOrder) {
+	public CustomerAddCart(List<IMenu> menus, Order currentOrder) {
 		this.menus = menus;
 		this.currentOrder = currentOrder;
 	}
@@ -60,7 +60,7 @@ public class CustomerCart {
 			System.out.print("Enter quantity: ");
 			int quantity = scanner.nextInt();
 
-			currentOrder.addItemWithQuantity(selectedItem, quantity);
+			currentOrder.addItem(selectedItem, quantity);
 			System.out.println("Added to cart.");
 		}
 	}

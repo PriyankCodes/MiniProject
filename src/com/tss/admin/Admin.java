@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Scanner;
 
+import com.tss.deliveryagents.IDeliveryAgents;
+import com.tss.discount.IDiscount;
 import com.tss.exception.NoMenuAvailableException;
-import com.tss.model.IDeliveryAgents;
-import com.tss.model.IDiscount;
-import com.tss.model.IMenu;
+import com.tss.menus.IMenu;
 import com.tss.util.ObjectLoad;
 import com.tss.util.ObjectStore;
 
@@ -27,9 +27,9 @@ public class Admin implements Serializable {
 
 	Scanner scanner = new Scanner(System.in);
 
-	public Admin(String adminId, String password) {
-		this.adminId = adminId;
-		this.password = password;
+	public Admin() {
+		this.adminId = "1";
+		this.password = "123456";
 	}
 
 	public boolean authenticate(String inputId, String inputPass) {

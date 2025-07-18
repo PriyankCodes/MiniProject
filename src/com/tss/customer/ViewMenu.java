@@ -3,8 +3,8 @@ package com.tss.customer;
 import java.util.List;
 
 import com.tss.exception.NoMenuAvailableException;
-import com.tss.model.FoodItem;
-import com.tss.model.IMenu;
+import com.tss.menus.FoodItem;
+import com.tss.menus.IMenu;
 
 public class ViewMenu {
 

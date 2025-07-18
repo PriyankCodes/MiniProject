@@ -5,10 +5,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.tss.model.FoodItem;
-import com.tss.model.IDeliveryAgents;
-import com.tss.model.IDiscount;
-import com.tss.model.IPayment;
+import com.tss.deliveryagents.IDeliveryAgents;
+import com.tss.discount.IDiscount;
+import com.tss.menus.FoodItem;
+import com.tss.payment.IPayment;
 import com.tss.util.ObjectLoad;
 
 public class Order implements Serializable {
@@ -31,7 +31,7 @@ public class Order implements Serializable {
 		orderId = counter++;
 	}
 
-	public void addItemWithQuantity(FoodItem item, int quantity) {
+	public void addItem(FoodItem item, int quantity) {
 		if (itemQuantityMap.containsKey(item)) {
 			int currentQty = itemQuantityMap.get(item);
 			itemQuantityMap.put(item, currentQty + quantity);

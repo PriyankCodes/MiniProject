@@ -3,9 +3,6 @@ package com.tss.menus;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.tss.model.FoodItem;
-import com.tss.model.IMenu;
-
 public class ChineseMenu implements IMenu {
 
 	private static final long serialVersionUID = 1L;

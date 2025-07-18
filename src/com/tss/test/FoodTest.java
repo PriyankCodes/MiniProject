@@ -12,6 +12,7 @@ public class FoodTest {
 
 	public static void main(String[] args) {
 
+		System.out.println("Welcome to Priyank's Restro...");
 		while (true) {
 			System.out.print("\nAre you:\n1. Admin\n2. Customer\n3. Exit => ");
 			int choice = scanner.nextInt();
@@ -47,7 +48,7 @@ public class FoodTest {
 	}
 
 	private static void admin() {
-		Admin admin = new Admin("1", "123456");
+		Admin admin = new Admin();
 
 		System.out.print("\nEnter ID : ");
 		String id = scanner.next();
