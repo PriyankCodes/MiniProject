@@ -8,25 +8,29 @@ import com.tss.orders.Order;
 
 public class ViewCart {
 
-	Order order;
+	private final Order order;
 
 	public ViewCart(Order order) {
-		super();
 		this.order = order;
 	}
 
 	public void viewCart() {
-
 		if (order.getItemQuantityMap().isEmpty()) {
 			throw new EmptyCartException();
 		}
-		System.out.println("\nItems In Cart :");
+
+		System.out.println("\nItems In Cart:");
+		System.out.printf("%-20s %-10s %-10s %-30s%n", "Item Name", "Price", "Quantity", "Description");
+		System.out.println("--------------------------------------------------------------------------");
 
 		for (Map.Entry<FoodItem, Integer> entry : order.getItemQuantityMap().entrySet()) {
-			System.out.println("  - " + entry.getKey() + " (x" + entry.getValue() + ")");
+			FoodItem item = entry.getKey();
+			int quantity = entry.getValue();
+			System.out.printf("%-20s %-10.2f %-10d %-30s%n", item.getName(), item.getPrice(), quantity,
+					item.getDescription());
 		}
-		System.out.println("\n\tTotal Amount  : ₹" + order.getTotalAmount());
 
+		System.out.println("--------------------------------------------------------------------------");
+		System.out.printf("\n%-30s ₹%.2f%n", "Total Amount:", order.getTotalAmount());
 	}
-
 }

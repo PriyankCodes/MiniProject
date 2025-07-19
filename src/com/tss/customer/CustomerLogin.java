@@ -2,6 +2,7 @@ package com.tss.customer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import com.tss.util.ObjectLoad;
 import com.tss.util.ObjectStore;
@@ -9,6 +10,7 @@ import com.tss.validate.InputValidator;
 
 public class CustomerLogin {
 	private static final String CUSTOMER_FILE = "customers.ser";
+	static Scanner scanner = new Scanner(System.in);
 
 	public Customer authenticate() {
 
@@ -33,22 +35,30 @@ public class CustomerLogin {
 			}
 		}
 
-		System.out.println("No account found. Let's create one.");
+		System.out.print("No account found. Do you want to create One (Yes/no) : ");
+		String createAccount = scanner.next().toLowerCase();
 
-		String name = InputValidator.getValidName();
+		if (createAccount.equals("yes")) {
 
-		String phone = InputValidator.getValidPhone();
+			String name = InputValidator.getValidName();
 
-		String address = InputValidator.getValidAddress();
+			String phone = InputValidator.getValidPhone();
 
-		String password = InputValidator.getValidPassword();
+			String address = InputValidator.getValidAddress();
 
-		Customer newCustomer = new Customer(name, email, phone, address, password);
-		customers.add(newCustomer);
+			String password = InputValidator.getValidPassword();
 
-		ObjectStore.save(CUSTOMER_FILE, customers);
-		System.out.println("Account created successfully.");
+			Customer newCustomer = new Customer(name, email, phone, address, password);
+			customers.add(newCustomer);
 
-		return newCustomer;
+			ObjectStore.save(CUSTOMER_FILE, customers);
+			System.out.println("Account created successfully.");
+
+			return newCustomer;
+		}
+		return null;
+		
+	
+
 	}
 }

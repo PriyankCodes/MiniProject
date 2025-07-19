@@ -42,8 +42,12 @@ public class CustomerAddCart {
 
 		while (true) {
 			System.out.println("\nAvailable Items:");
+			System.out.printf("%-5s %-20s %-10s %-30s%n", "No.", "Item Name", "Price", "Description");
+			System.out.println("---------------------------------------------------------------------");
 			for (int i = 0; i < items.size(); i++) {
-				System.out.println((i + 1) + ". " + items.get(i));
+				FoodItem item = items.get(i);
+				System.out.printf("%-5d %-20s %-10.2f %-30s%n", (i + 1), item.getName(), item.getPrice(),
+						item.getDescription());
 			}
 
 			System.out.print("\nSelect item number (0 to finish): ");

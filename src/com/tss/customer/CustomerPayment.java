@@ -19,13 +19,11 @@ public class CustomerPayment {
 	private static final String DELIVERY_FILE = "delivery.ser";
 
 	private final Scanner scanner = new Scanner(System.in);
-
-	private Order currentOrder;
-	private List<Order> orders;
-	private Customer customer;
+	private final Order currentOrder;
+	private final List<Order> orders;
+	private final Customer customer;
 
 	public CustomerPayment(Order currentOrder, List<Order> orders, Customer customer) {
-		super();
 		this.currentOrder = currentOrder;
 		this.orders = orders;
 		this.customer = customer;
@@ -36,53 +34,69 @@ public class CustomerPayment {
 			throw new EmptyCartException();
 		}
 
+		System.out.println("\n===============================");
+		System.out.println(" Checkout Process");
+		System.out.println("===============================\n");
+
 		payment(currentOrder);
 
+		System.out.println("\nAssigning Delivery Agent...");
 		List<IDeliveryAgents> partners = ObjectLoad.load(DELIVERY_FILE);
+
 		if (partners == null || partners.isEmpty()) {
-			System.out.println("No delivery agents available.");
-			
+			System.out.println("No delivery agents available. Order will be processed without agent.");
+		} else {
+			IDeliveryAgents agent = partners.get(new Random().nextInt(partners.size()));
+			currentOrder.setDeliveryPartner(agent);
+			System.out.println("Delivery Partner Assigned: " + agent.getAgent());
 		}
-		IDeliveryAgents partner = partners.get(new Random().nextInt(partners.size()));
-		currentOrder.setDeliveryPartner(partner);
 
 		orders.add(currentOrder);
 
-		InvoicePrinter printer = new InvoicePrinter();
-		printer.printInvoice(currentOrder, customer);
-
-
+		System.out.println("\nGenerating Invoice...");
+		new InvoicePrinter().printInvoice(currentOrder, customer);
+		System.out.println("Order placed successfully.\n");
 	}
 
 	private void payment(Order order) {
-		System.out.println("\nSelect Payment Method:");
+		System.out.println("\nPayment Section");
+		System.out.println("-------------------------");
 		System.out.println("1. UPI");
 		System.out.println("2. Card");
 		System.out.println("3. Cash");
-		System.out.print("Choice: ");
+		System.out.print("Enter your choice (1-3): ");
+
 		int payChoice = scanner.nextInt();
+		scanner.nextLine(); // consume leftover newline
 
 		ValidatePayment valid = new ValidatePayment();
-		IPayment payment = null;
+		IPayment payment;
+
 		switch (payChoice) {
 		case 1 -> {
+			System.out.println("\nEnter UPI Details:");
 			String upiId = valid.getValidUPI();
 			String pin = valid.getValidPin();
 			payment = new UPIPayment(upiId, pin, order.getFinalAmount());
+			System.out.println("UPI Payment Successful.");
 		}
 		case 2 -> {
+			System.out.println("\nEnter Card Details:");
 			String cardNumber = valid.getValidCardNumber();
 			String pin = valid.getValidPin();
 			payment = new CardPayment(cardNumber, pin, order.getFinalAmount());
+			System.out.println("Card Payment Successful.");
 		}
 		case 3 -> {
 			payment = new CashPayment(order.getFinalAmount());
+			System.out.println("Cash Payment Selected.");
 		}
 		default -> {
 			System.out.println("Invalid payment method. Aborting checkout.");
 			return;
 		}
 		}
+
 		order.setPayment(payment);
 	}
 }

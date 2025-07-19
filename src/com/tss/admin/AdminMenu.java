@@ -93,9 +93,11 @@ public class AdminMenu {
 			return;
 		}
 		System.out.println();
+		System.out.printf("%-5s %-20s%n", "No.", "Menu Name");
+		System.out.println("------------------------");
 		for (int i = 0; i < menus.size(); i++) {
-			IMenu menu = menus.get(i);
-			System.out.println((i + 1) + ". " + menu.getClass().getSimpleName());
+			System.out.printf("%-5d %-20s%n", (i + 1), menus.get(i).getClass().getSimpleName());
 		}
 	}
+
 }

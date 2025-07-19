@@ -8,31 +8,42 @@ import com.tss.menus.FoodItem;
 public class InvoicePrinter {
 
 	public void printInvoice(Order order, Customer customer) {
+		System.out.println("\n==========================================");
+		System.out.println("                 INVOICE                  ");
+		System.out.println("==========================================");
+		System.out.printf("Order ID        : %s%n", order.getOrderId());
+		System.out.printf("Customer ID     : %s%n", customer.getCustomerId());
+		System.out.printf("Customer Name   : %s%n", customer.getName());
+		System.out.printf("Customer Phone  : %s%n", customer.getPhone());
 
-		System.out.println("\n========= INVOICE =========");
-		System.out.println("Order ID     : " + order.getOrderId());
-		System.out.println("Customer ID  : " + customer.getCustomerId());
-		System.out.println("Customer Name : " + customer.getName());
-		System.out.println("Cutomer Phone : " + customer.getPhone());
 		System.out.println("\nItems Ordered:");
+		System.out.println("--------------------------------------------------");
+		System.out.printf("%-25s %8s %12s%n", "Item", "Qty", "Price (₹)");
+		System.out.println("--------------------------------------------------");
 
 		for (Map.Entry<FoodItem, Integer> entry : order.getItemQuantityMap().entrySet()) {
-			System.out.println("  - " + entry.getKey() + " (x" + entry.getValue() + ")");
-		}
-		System.out.println();
-		System.out.println("Total Amount     : ₹" + order.getTotalAmount());
-		System.out.println("Discount Applied : ₹" + order.getDiscountApplied());
-		System.out.println("Final Amount     : ₹" + order.getFinalAmount());
-
-		String confirmation = order.getPayment().pay();
-		System.out.println("Payment Status    : " + confirmation);
-
-		if (order.getDeliveryPartner() != null) {
-			System.out.println("Delivery Partner : " + order.getDeliveryPartner().getClass().getSimpleName());
-		} else {
-			System.out.println("Delivery Partner : Not assigned");
+			FoodItem item = entry.getKey();
+			int qty = entry.getValue();
+			double price = item.getPrice() * qty;
+			System.out.printf("%-25s %8d %12.2f%n", item.getName(), qty, price);
 		}
 
-		System.out.println("===========================\n");
+		System.out.println("--------------------------------------------------");
+		System.out.printf("%-25s %8s %12.2f%n", "", "Total", order.getTotalAmount());
+		System.out.printf("%-25s %8s %12.2f%n", "", "Discount", order.getDiscountApplied());
+		System.out.printf("%-25s %8s %12.2f%n", "", "Final", order.getFinalAmount());
+
+		System.out.println("\nPayment Details:");
+		System.out.println("--------------------------------------------------");
+		System.out.printf("Payment Status  : %s%n", order.getPayment().pay());
+
+		String deliveryPartner = (order.getDeliveryPartner() != null)
+				? order.getDeliveryPartner().getClass().getSimpleName()
+				: "Not Assigned";
+
+		System.out.printf("Delivery Partner: %s%n", deliveryPartner);
+		System.out.println("--------------------------------------------------");
+		System.out.println("         Thank you for your order!               ");
+		System.out.println("==========================================\n");
 	}
 }

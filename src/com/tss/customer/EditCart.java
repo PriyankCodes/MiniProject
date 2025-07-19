@@ -26,14 +26,15 @@ public class EditCart {
 		List<FoodItem> itemList = new ArrayList<>(cart.keySet());
 
 		System.out.println("\n--- Edit Cart Quantities ---");
+		System.out.printf("%-5s %-20s %-15s%n", "No.", "Item Name", "Current Quantity");
+		System.out.println("-----------------------------------------");
 		for (int i = 0; i < itemList.size(); i++) {
 			FoodItem item = itemList.get(i);
-			System.out.println((i + 1) + ". " + item.getName() + " - Current Qty: " + cart.get(item));
+			System.out.printf("%-5d %-20s %-15d%n", (i + 1), item.getName(), cart.get(item));
 		}
 
-		System.out.print("Select item to update : ");
+		System.out.print("Select item to update (number): ");
 		int index = scanner.nextInt();
-		scanner.nextLine();
 
 		if (index < 1 || index > itemList.size()) {
 			System.out.println("Invalid selection.");
@@ -44,16 +45,19 @@ public class EditCart {
 		System.out.print("Enter new quantity (0 to remove): ");
 		int newQty = scanner.nextInt();
 
+		if (newQty < 0) {
+			System.out.println("Quantity cannot be negative.");
+			return;
+		}
+
 		if (newQty == 0) {
 			cart.remove(selected);
 			System.out.println("Item removed from cart.");
-		} else if (newQty > 0) {
+		} else {
 			cart.put(selected, newQty);
 			System.out.println("Quantity updated.");
-		} else {
-			System.out.println("Invalid quantity.");
 		}
 
-		order.calculateTotals(); 
+		order.calculateTotals(); // Update total after edit
 	}
 }

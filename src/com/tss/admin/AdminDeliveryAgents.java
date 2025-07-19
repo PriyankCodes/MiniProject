@@ -65,9 +65,12 @@ public class AdminDeliveryAgents {
 			System.out.println("No agents to remove.");
 			return;
 		}
+		System.out.printf("\n" + "%-5s %-20s%n", "No.", "Agent Name");
+		System.out.println("-----------------------------");
 		for (int i = 0; i < deliveryAgents.size(); i++) {
-			System.out.println((i + 1) + ". " + deliveryAgents.get(i).getClass().getSimpleName());
+			System.out.printf("%-5d %-20s%n", (i + 1), deliveryAgents.get(i).getClass().getSimpleName());
 		}
+
 		System.out.print("Select to remove: ");
 		int index = scanner.nextInt();
 		if (index < 1 || index > deliveryAgents.size()) {
@@ -84,8 +87,11 @@ public class AdminDeliveryAgents {
 			System.out.println("No agents available.");
 			return;
 		}
+		System.out.printf("\n" + "%-5s %-20s%n", "No.", "Agent Name");
+		System.out.println("-----------------------------");
 		for (int i = 0; i < deliveryAgents.size(); i++) {
-			System.out.println((i + 1) + ". " + deliveryAgents.get(i).getClass().getSimpleName());
+			System.out.printf("%-5d %-20s%n", (i + 1), deliveryAgents.get(i).getClass().getSimpleName());
 		}
 	}
+
 }

@@ -103,10 +103,16 @@ public class AdminFoodItems {
 			return;
 		}
 		List<FoodItem> items = menus.get(menuIndex - 1).getMenuItems();
+		System.out.println();
+		System.out.printf("%-5s %-25s %-10s %-40s%n", "No", "Name", "Price", "Description");
+		System.out.println("-------------------------------------------------------------------------------");
 		for (int i = 0; i < items.size(); i++) {
-			System.out.println((i + 1) + ". " + items.get(i));
+			FoodItem item = items.get(i);
+			System.out.printf("%-5d %-25s %-10.2f %-40s%n", i + 1, item.getName(), item.getPrice(),
+					item.getDescription());
 		}
-		System.out.print("Select item to edit: ");
+
+		System.out.print("\nSelect item to edit: ");
 		int index = scanner.nextInt();
 		scanner.nextLine();
 		if (index < 1 || index > items.size()) {
@@ -153,11 +159,17 @@ public class AdminFoodItems {
 			System.out.println("Invalid menu.");
 			return;
 		}
+		System.out.println();
 		List<FoodItem> items = menus.get(menuIndex - 1).getMenuItems();
+		System.out.printf("%-5s %-25s %-10s %-40s%n", "No", "Name", "Price", "Description");
+		System.out.println("-------------------------------------------------------------------------------");
 		for (int i = 0; i < items.size(); i++) {
-			System.out.println((i + 1) + ". " + items.get(i));
+			FoodItem item = items.get(i);
+			System.out.printf("%-5d %-25s %-10.2f %-40s%n", i + 1, item.getName(), item.getPrice(),
+					item.getDescription());
 		}
-		System.out.print("Select item to remove: ");
+
+		System.out.print("\nSelect item to remove: ");
 		int index = scanner.nextInt();
 		if (index < 1 || index > items.size()) {
 			System.out.println("Invalid item.");
@@ -171,9 +183,12 @@ public class AdminFoodItems {
 	private void viewAllItems() {
 		viewMenus();
 		for (IMenu menu : menus) {
-			System.out.println("\n" + menu.getClass().getSimpleName() + ":");
+			System.out.println("\n=> " + menu.getClass().getSimpleName() );
+			System.out.printf("%-5s %-25s %-10s %-40s%n", "ID", "Name", "Price", "Description");
+			System.out.println("-------------------------------------------------------------------------------");
 			for (FoodItem item : menu.getMenuItems()) {
-				System.out.println("   - " + item);
+				System.out.printf("%-5d %-25s %-10.2f %-40s%n", item.getId(), item.getName(), item.getPrice(),
+						item.getDescription());
 			}
 		}
 	}
